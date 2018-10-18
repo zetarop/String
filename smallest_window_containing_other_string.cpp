@@ -4,18 +4,6 @@
 #define ll long long
 using namespace std;
 
-
-
-bool fun(map<char, int> T, string s, int L, int R, map<char, int> M)
-{
-	for(auto a:T)
-	{
-		if(T[a.first] > M[a.first])
-			return 0;
-	}
-	return 1;
-}
-
 void solve()
 {
 	string s,t;
