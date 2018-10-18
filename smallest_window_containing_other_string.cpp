@@ -35,31 +35,42 @@ void solve()
 
 	map<char,int> M;
 
-	int ansL=0,ansR=len1-1;
-	int L=0;
-	int R=0;
-	M[s[0]]++;
-	while(R < len1)
+	int cnt=0;
+	int start=0;
+	int start_index=-1;
+	int min_len = INT_MAX;
+
+	for(int i=0;i<len1;i++)
 	{
-		if(fun(T,s,L,R,M) && L < R)
+		M[s[i]]++;
+
+		if(T[s[i]] !=0 && M[s[i]] <= T[s[i]])
+			cnt++;
+
+		if(cnt == len2)
 		{
-			if(R-L < ansR- ansL)
+			while(M[s[start]] > T[s[start]] || T[s[start]] == 0)
 			{
-				ansR = R;
-				ansL = L;
+				if(M[s[start]] > T[s[start]])
+					M[s[start]]--;
+				start++;
 			}
-			M[s[L]]--;
-			L++;
+			int len_window = i-start+1;
+			if(min_len > len_window)
+			{
+				min_len = len_window;
+				start_index = start;
+			}
 		}
-		else
-		{
-			R++;
-			M[s[R]]++;
-		}
+		
 	}
-	for(int i=ansL;i<=ansR;i++)
-		cout<<s[i];
-	cout<<endl;
+	if(start_index == -1)
+	{
+		cout<<-1<<endl;
+		return;
+	}
+	cout<<s.substr(start_index,min_len)<<endl;
+	return;
 }
 
 
